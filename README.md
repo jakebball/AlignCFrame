@@ -1,9 +1,8 @@
 # AlignCFrame
 AlignCFrame is a simple and easy to use substitute for AlignPosition and AlignOrientation. It gives you the ability to control an instances CFrame without having to do make new AlignPosition and AlignOrientation object separately while also adding extra features including pausing and resuming certain alignments and then saving them to be used later during the play session! 
 
-# Where to downlaod
-You can get the module on the roblox website right here
-https://www.roblox.com/library/5969446965/AlignCFrame
+# Where to download
+Since the script is very lightweight you can simply copy the source code from the AlignCFrame file in the src folder
 
 # How to use:
 

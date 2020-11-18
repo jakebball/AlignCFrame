@@ -1,26 +1,6 @@
 local AlignCFrame = {}
 AlignCFrame.__index = AlignCFrame
 
---[[
-	AlignCFrame is a simple to use align object designed to remove the need of having to create 
-	and manage align position and align orientation seperately. This also has other useful features 
-	such as the ability to pause the align and then resume it later.
-
-	AlignCFrame:
-	
-	 -new(Instance parentInstance, CFrame optionalStartingCFrame)
-	 -setCFrame(CFrame newCFrame)
-	 -setPosition(Vector3 newPosition)
-	 -setOrientation(Vector3 newOrientation)
-	 -setForce(number newForce)
-	 -setTorque(number newTorque)
-	 -pause()
-	 -resume()
-	 -destroy()
---]]
-
-local Maid = require(script.Maid)
-
 function AlignCFrame.new(parentInstance, optionalStartingCFrame)
 	assert(typeof(parentInstance) == "Instance", "parentInstance must be of type Instance")
 	local self = setmetatable({}, AlignCFrame)
@@ -32,8 +12,6 @@ function AlignCFrame.new(parentInstance, optionalStartingCFrame)
 	self._alignPosition.Parent = parentInstance
 	self._alignOrientation = Instance.new("AlignOrientation")
 	self._alignOrientation.Parent = parentInstance
-	
-	self._maid = Maid.new()
 	
 	self._a0 = Instance.new("Attachment")
 	self._a0.Parent = parentInstance
@@ -49,11 +27,6 @@ function AlignCFrame.new(parentInstance, optionalStartingCFrame)
 	self._a1 = Instance.new("Attachment")
 	self._a1.Parent = self._attachmentPart
 	
-	self._maid:GiveTask(self._a0)
-	self._maid:GiveTask(self._a1)
-	self._maid:GiveTask(self._attachmentPart)
-	self._maid:GiveTask(self._alignOrientation)
-	self._maid:GiveTask(self._alignPosition)
 	
 	self._alignPosition.Attachment0 = self._a0
 	self._alignPosition.Attachment1 = self._a1
@@ -140,7 +113,11 @@ function AlignCFrame:deleteAlignment(saveName)
 end
 
 function AlignCFrame:destroy()
-	self._maid:DoCleaning()
+	self._alignPosition:Destroy()
+	self._alignOrientation:Destroy()
+	self._attachmentPart:Destroy()
+	self._a0:Destroy()
+	self._a1:Destroy()
 end
 
 return AlignCFrame
